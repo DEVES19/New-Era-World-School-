@@ -33,4 +33,20 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    from flask import request, redirect
+
+@app.route("/add", methods=["POST"])
+def add():
+    name = request.form["name"]
+    student_class = request.form["class"]
+    phone = request.form["phone"]
+
+    with open("admissions.json", "a") as f:
+        f.write(json.dumps({
+            "name": name,
+            "class": student_class,
+            "phone": phone
+        }) + "\n")
+
+    return redirect("/")
     return "New Era World School Dashboard is LIVE 🚀"
